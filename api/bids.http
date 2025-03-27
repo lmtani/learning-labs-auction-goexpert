@@ -1,0 +1,17 @@
+@host = http://localhost:8080
+@auctionId = 754d0c4c-d67d-4fca-9d4f-841b50de7e71
+@userId = 754d0c4c-d67d-4fca-9d4f-841b50de7e71
+
+### Create new bid
+POST {{host}}/bid
+Content-Type: application/json
+
+{
+  "auction_id": "{{auctionId}}",
+  "user_id": "{{userId}}",
+  "amount": 1200.00
+}
+
+### Get bids by auction ID
+GET {{host}}/bid/{{auctionId}}
+Content-Type: application/json

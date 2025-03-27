@@ -1,0 +1,6 @@
+@host = http://localhost:8080
+@userId = 754d0c4c-d67d-4fca-9d4f-841b50de7e71
+
+### Get user by ID
+GET {{host}}/user/{{userId}}
+Content-Type: application/json

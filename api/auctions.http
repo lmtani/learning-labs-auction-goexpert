@@ -1,0 +1,25 @@
+@host = http://localhost:8080
+@auctionId = 754d0c4c-d67d-4fca-9d4f-841b50de7e71
+
+### Create new auction
+POST {{host}}/auction
+Content-Type: application/json
+
+{
+  "product_name": "iPhone 15 Pro",
+  "category": "Electronics",
+  "description": "Brand new iPhone 15 Pro 256GB",
+  "condition": 0
+}
+
+### Get auction by ID
+GET {{host}}/auction/{{auctionId}}
+Content-Type: application/json
+
+### Get auctions with filters
+GET {{host}}/auction?status=0
+Content-Type: application/json
+
+### Get winning bid for auction
+GET {{host}}/auction/winner/{{auctionId}}
+Content-Type: application/json
