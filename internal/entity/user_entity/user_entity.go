@@ -2,6 +2,7 @@ package user_entity
 
 import (
 	"context"
+
 	"fullcycle-auction_go/internal/internal_error"
 )
 

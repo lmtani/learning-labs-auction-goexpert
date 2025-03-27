@@ -2,14 +2,17 @@ package auction_entity
 
 import (
 	"context"
-	"fullcycle-auction_go/internal/internal_error"
-	"github.com/google/uuid"
 	"time"
+
+	"fullcycle-auction_go/internal/internal_error"
+
+	"github.com/google/uuid"
 )
 
 func CreateAuction(
 	productName, category, description string,
-	condition ProductCondition) (*Auction, *internal_error.InternalError) {
+	condition ProductCondition,
+) (*Auction, *internal_error.InternalError) {
 	auction := &Auction{
 		Id:          uuid.New().String(),
 		ProductName: productName,
@@ -49,8 +52,10 @@ type Auction struct {
 	Timestamp   time.Time
 }
 
-type ProductCondition int
-type AuctionStatus int
+type (
+	ProductCondition int
+	AuctionStatus    int
+)
 
 const (
 	Active AuctionStatus = iota

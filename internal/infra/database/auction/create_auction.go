@@ -2,6 +2,7 @@ package auction
 
 import (
 	"context"
+
 	"fullcycle-auction_go/configuration/logger"
 	"fullcycle-auction_go/internal/entity/auction_entity"
 	"fullcycle-auction_go/internal/internal_error"
@@ -30,7 +31,8 @@ func NewAuctionRepository(database *mongo.Database) *AuctionRepository {
 
 func (ar *AuctionRepository) CreateAuction(
 	ctx context.Context,
-	auctionEntity *auction_entity.Auction) *internal_error.InternalError {
+	auctionEntity *auction_entity.Auction,
+) *internal_error.InternalError {
 	auctionEntityMongo := &AuctionEntityMongo{
 		Id:          auctionEntity.Id,
 		ProductName: auctionEntity.ProductName,

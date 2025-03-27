@@ -3,16 +3,19 @@ package bid
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"fullcycle-auction_go/configuration/logger"
 	"fullcycle-auction_go/internal/entity/bid_entity"
 	"fullcycle-auction_go/internal/internal_error"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
 func (bd *BidRepository) FindBidByAuctionId(
-	ctx context.Context, auctionId string) ([]bid_entity.Bid, *internal_error.InternalError) {
+	ctx context.Context, auctionId string,
+) ([]bid_entity.Bid, *internal_error.InternalError) {
 	filter := bson.M{"auctionId": auctionId}
 
 	cursor, err := bd.Collection.Find(ctx, filter)
@@ -46,7 +49,8 @@ func (bd *BidRepository) FindBidByAuctionId(
 }
 
 func (bd *BidRepository) FindWinningBidByAuctionId(
-	ctx context.Context, auctionId string) (*bid_entity.Bid, *internal_error.InternalError) {
+	ctx context.Context, auctionId string,
+) (*bid_entity.Bid, *internal_error.InternalError) {
 	filter := bson.M{"auction_id": auctionId}
 
 	var bidEntityMongo BidEntityMongo

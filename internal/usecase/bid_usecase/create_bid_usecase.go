@@ -2,12 +2,13 @@ package bid_usecase
 
 import (
 	"context"
-	"fullcycle-auction_go/configuration/logger"
-	"fullcycle-auction_go/internal/entity/bid_entity"
-	"fullcycle-auction_go/internal/internal_error"
 	"os"
 	"strconv"
 	"time"
+
+	"fullcycle-auction_go/configuration/logger"
+	"fullcycle-auction_go/internal/entity/bid_entity"
+	"fullcycle-auction_go/internal/internal_error"
 )
 
 type BidInputDTO struct {
@@ -103,8 +104,8 @@ func (bu *BidUseCase) triggerCreateRoutine(ctx context.Context) {
 
 func (bu *BidUseCase) CreateBid(
 	ctx context.Context,
-	bidInputDTO BidInputDTO) *internal_error.InternalError {
-
+	bidInputDTO BidInputDTO,
+) *internal_error.InternalError {
 	bidEntity, err := bid_entity.CreateBid(bidInputDTO.UserId, bidInputDTO.AuctionId, bidInputDTO.Amount)
 	if err != nil {
 		return err

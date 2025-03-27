@@ -2,14 +2,15 @@ package bid
 
 import (
 	"context"
+	"os"
+	"sync"
+	"time"
+
 	"fullcycle-auction_go/configuration/logger"
 	"fullcycle-auction_go/internal/entity/auction_entity"
 	"fullcycle-auction_go/internal/entity/bid_entity"
 	"fullcycle-auction_go/internal/infra/database/auction"
 	"fullcycle-auction_go/internal/internal_error"
-	"os"
-	"sync"
-	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -46,7 +47,8 @@ func NewBidRepository(database *mongo.Database, auctionRepository *auction.Aucti
 
 func (bd *BidRepository) CreateBid(
 	ctx context.Context,
-	bidEntities []bid_entity.Bid) *internal_error.InternalError {
+	bidEntities []bid_entity.Bid,
+) *internal_error.InternalError {
 	var wg sync.WaitGroup
 	for _, bid := range bidEntities {
 		wg.Add(1)

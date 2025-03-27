@@ -3,16 +3,19 @@ package auction
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"fullcycle-auction_go/configuration/logger"
 	"fullcycle-auction_go/internal/entity/auction_entity"
 	"fullcycle-auction_go/internal/internal_error"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"time"
 )
 
 func (ar *AuctionRepository) FindAuctionById(
-	ctx context.Context, id string) (*auction_entity.Auction, *internal_error.InternalError) {
+	ctx context.Context, id string,
+) (*auction_entity.Auction, *internal_error.InternalError) {
 	filter := bson.M{"_id": id}
 
 	var auctionEntityMongo AuctionEntityMongo
@@ -36,7 +39,8 @@ func (repo *AuctionRepository) FindAuctions(
 	ctx context.Context,
 	status auction_entity.AuctionStatus,
 	category string,
-	productName string) ([]auction_entity.Auction, *internal_error.InternalError) {
+	productName string,
+) ([]auction_entity.Auction, *internal_error.InternalError) {
 	filter := bson.M{}
 
 	if status != 0 {
