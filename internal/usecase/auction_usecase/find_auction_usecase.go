@@ -2,6 +2,7 @@ package auction_usecase
 
 import (
 	"context"
+
 	"fullcycle-auction_go/configuration/logger"
 	"fullcycle-auction_go/internal/entity/auction_entity"
 	"fullcycle-auction_go/internal/internal_error"
@@ -9,8 +10,9 @@ import (
 )
 
 func (au *AuctionUseCase) FindAuctionById(
-	ctx context.Context, id string) (*AuctionOutputDTO, *internal_error.InternalError) {
-	auctionEntity, err := au.auctionRepositoryInterface.FindAuctionById(ctx, id)
+	ctx context.Context, id string,
+) (*AuctionOutputDTO, *internal_error.InternalError) {
+	auctionEntity, err := au.auctionRepository.FindAuctionById(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -29,8 +31,9 @@ func (au *AuctionUseCase) FindAuctionById(
 func (au *AuctionUseCase) FindAuctions(
 	ctx context.Context,
 	status AuctionStatus,
-	category, productName string) ([]AuctionOutputDTO, *internal_error.InternalError) {
-	auctionEntities, err := au.auctionRepositoryInterface.FindAuctions(
+	category, productName string,
+) ([]AuctionOutputDTO, *internal_error.InternalError) {
+	auctionEntities, err := au.auctionRepository.FindAuctions(
 		ctx, auction_entity.AuctionStatus(status), category, productName)
 	if err != nil {
 		return nil, err
@@ -54,8 +57,9 @@ func (au *AuctionUseCase) FindAuctions(
 
 func (au *AuctionUseCase) FindWinningBidByAuctionId(
 	ctx context.Context,
-	auctionId string) (*WinningInfoOutputDTO, *internal_error.InternalError) {
-	auction, err := au.auctionRepositoryInterface.FindAuctionById(ctx, auctionId)
+	auctionId string,
+) (*WinningInfoOutputDTO, *internal_error.InternalError) {
+	auction, err := au.auctionRepository.FindAuctionById(ctx, auctionId)
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +74,7 @@ func (au *AuctionUseCase) FindWinningBidByAuctionId(
 		Timestamp:   auction.Timestamp,
 	}
 
-	bidWinning, err := au.bidRepositoryInterface.FindWinningBidByAuctionId(ctx, auction.Id)
+	bidWinning, err := au.bidRepository.FindWinningBidByAuctionId(ctx, auction.Id)
 	if err != nil {
 		logger.Error("", err)
 		return &WinningInfoOutputDTO{
