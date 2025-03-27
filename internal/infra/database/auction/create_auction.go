@@ -55,7 +55,6 @@ func (ar *AuctionRepository) CreateAuction(
 	// Start a goroutine to update the auction status after the interval expires
 	go func() {
 		<-time.After(getAuctionInterval())
-		fmt.Printf("Auction '%s' has ended\n", auctionEntity.Id)
 		update := bson.M{
 			"$set": bson.M{
 				"status": auction_entity.Completed,
