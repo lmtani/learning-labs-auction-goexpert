@@ -24,7 +24,7 @@ docker ps
 
 ### Executando os Testes
 
-Para rodar todos os testes de integração com o MongoDB:
+Para rodar os testes de integração de criação de leilão com o MongoDB:
 
 ```bash
 go test ./internal/infra/database/auction/... -v
