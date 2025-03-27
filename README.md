@@ -1,46 +1,65 @@
 # Learning Labs Auction - GoExpert
 
-## Como Executar os Testes
+Esta aplicação gerencia leilões (auctions) e lances (bids) em Go, utilizando MongoDB.
+
+## Execução
+
+1. **Subir os containers Docker**:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+2. A aplicação estará disponível em `localhost:8080`.
+
+## Testando Endpoints
+
+Use a extensão REST Client do VSCode com os arquivos em `api/`:
+
+- **auctions.http**  
+  - `POST /auction`: Cria um leilão  
+  - `GET /auction/{id}`: Retorna um leilão  
+  - `GET /auction?status={status}`: Retorna leilões por status  
+  - `GET /auction/winner/{id}`: Retorna o lance vencedor
+
+- **bids.http**  
+  - `POST /bid`: Cria um lance  
+  - `GET /bid/{auctionId}`: Retorna lances de um leilão
+
+- **users.http**  
+  - `GET /user/{id}`: Retorna dados de um usuário
+
+## Testes
 
 ### Pré-requisitos
 
-- Docker e Docker Compose instalados
+- Docker e Docker Compose  
+- Go 1.20+
 
-- Go 1.20+ instalado
+### Iniciando MongoDB para Testes
 
-### Iniciando o MongoDB para Testes
+1. **Subir apenas o MongoDB**:
 
-1. Suba apenas o container do MongoDB:
+   ```bash
+   docker-compose up -d mongodb
+   ```
 
-```bash
-docker-compose up -d mongodb
-```
+2. **Verificar se está rodando**:
 
-1. Verifique se o MongoDB está rodando:
+   ```bash
+   docker ps
+   ```
 
-```bash
-docker ps
-```
-
-### Executando os Testes
-
-Para rodar os testes de integração de criação de leilão com o MongoDB:
+### Executando Testes
 
 ```bash
 go test ./internal/infra/database/auction/... -v
 ```
 
-### Exemplo de Teste de Integração
-
-Os testes de integração verificam:
-
-- Conexão com o banco de dados
-
-- Atualização automática de status
-
-Exemplo de saída esperada:
+Saída de exemplo:
 
 ```go
+❯ go test ./internal/infra/database/auction/... -v
 === RUN   TestCreateAuctionAndUpdateStatus
 --- PASS: TestCreateAuctionAndUpdateStatus (3.01s)
 === RUN   TestCreate10AuctionsAndUpdateStatus
@@ -49,9 +68,7 @@ PASS
 ok      fullcycle-auction_go/internal/infra/database/auction    6.032s
 ```
 
-### Parando o MongoDB
-
-Após os testes, você pode parar o container com:
+### Finalizando
 
 ```bash
 docker-compose down
